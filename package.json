@@ -16,7 +16,9 @@
     "db:generate": "pnpm --filter backend db:generate",
     "db:migrate": "pnpm --filter backend db:migrate",
     "db:seed": "pnpm --filter backend db:seed",
-    "lint": "pnpm run -r lint"
+    "lint": "pnpm run -r lint",
+    "lint:backend": "pnpm --filter backend lint",
+    "lint:frontend": "pnpm --filter frontend lint"
   },
   "keywords": [],
   "author": "",

@@ -23,8 +23,13 @@ export interface UserPayload {
  * ```
  */
 export const CurrentUser = createParamDecorator(
-  (data: keyof UserPayload | undefined, ctx: ExecutionContext): UserPayload | unknown => {
-    const request = ctx.switchToHttp().getRequest<FastifyRequest & { user: UserPayload }>();
+  (
+    data: keyof UserPayload | undefined,
+    ctx: ExecutionContext,
+  ): UserPayload | string | undefined => {
+    const request = ctx
+      .switchToHttp()
+      .getRequest<FastifyRequest & { user: UserPayload }>();
     const user = request.user;
 
     // If a specific property is requested, return just that property

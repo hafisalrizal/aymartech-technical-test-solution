@@ -124,9 +124,24 @@ designpilot/
 └── .env.example
 ```
 
+## API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/v1/auth/login` | Login with email/password |
+| `GET` | `/api/v1/projects` | List user's projects |
+| `POST` | `/api/v1/projects` | Create a new project |
+| `GET` | `/api/v1/projects/:id` | Get project details |
+| `PATCH` | `/api/v1/projects/:id` | Update project |
+| `DELETE` | `/api/v1/projects/:id` | Delete project |
+| `GET` | `/api/v1/projects/:id/messages` | Get conversation history |
+| `POST` | `/api/v1/projects/:id/chat` | Send message (SSE stream) |
+| `POST` | `/api/v1/projects/:id/chat/summarize` | Summarize decisions (SSE stream) |
+| `DELETE` | `/api/v1/projects/:id/chat` | Reset conversation |
+
 ## API Documentation
 
-Interactive API documentation is available at `/api/docs` when the backend is running.
+Interactive API documentation (Swagger) is available at `/api/docs` when the backend is running.
 
 ## AI Provider Choice
 
@@ -134,11 +149,29 @@ Interactive API documentation is available at `/api/docs` when the backend is ru
 
 1. **Free tier available** — No credit card required to get started
 2. **Generous limits** — 60 requests/minute on free tier is sufficient for development and demo
-3. **Quality responses** — Gemini Pro provides high-quality, contextual responses for design discussions
+3. **Quality responses** — Gemini Flash provides high-quality, contextual responses for design discussions
 4. **Streaming support** — Native SSE streaming for progressive response display
 5. **Simple API** — Straightforward SDK with good TypeScript support
 
-The AI provider is abstracted behind an interface, making it easy to swap to OpenRouter or Ollama by changing the `AI_PROVIDER` environment variable.
+### Supported Providers
+
+| Provider | `AI_PROVIDER` | `AI_API_KEY` | Use Case |
+|----------|---------------|--------------|----------|
+| Google Gemini | `gemini` | Required | Default, recommended |
+| OpenRouter | `openrouter` | Required | Access multiple models via single API |
+| Ollama | `ollama` | Not required | Local development, offline use |
+
+To switch providers, update your `.env`:
+
+```env
+# For OpenRouter
+AI_PROVIDER=openrouter
+AI_API_KEY=your-openrouter-key
+
+# For Ollama (local)
+AI_PROVIDER=ollama
+AI_BASE_URL=http://localhost:11434  # Optional, this is the default
+```
 
 ## Scripts
 

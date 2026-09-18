@@ -14,6 +14,8 @@ export default () => ({
   ai: {
     provider: process.env.AI_PROVIDER || 'gemini',
     apiKey: process.env.AI_API_KEY,
+    model: process.env.AI_MODEL,
+    timeout: parseInt(process.env.AI_TIMEOUT || '30000', 10),
   },
 
   cors: {

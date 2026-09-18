@@ -5,6 +5,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { ProjectsModule } from './modules/projects/projects.module';
+import { AiModule } from './modules/ai/ai.module';
 import { configuration, validate } from './config';
 
 @Module({
@@ -21,6 +23,8 @@ import { configuration, validate } from './config';
     }),
     PrismaModule,
     AuthModule,
+    ProjectsModule,
+    AiModule,
   ],
   controllers: [AppController],
   providers: [AppService],

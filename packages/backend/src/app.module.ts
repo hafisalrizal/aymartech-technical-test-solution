@@ -7,6 +7,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { ProjectsModule } from './modules/projects/projects.module';
 import { AiModule } from './modules/ai/ai.module';
+import { ChatModule } from './modules/chat/chat.module';
 import { configuration, validate } from './config';
 
 @Module({
@@ -25,6 +26,7 @@ import { configuration, validate } from './config';
     AuthModule,
     ProjectsModule,
     AiModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [AppService],

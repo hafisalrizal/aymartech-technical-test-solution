@@ -15,7 +15,7 @@ export class GeminiProvider implements AiProvider {
 
   constructor(config: AiProviderConfig) {
     this.client = new GoogleGenerativeAI(config.apiKey);
-    this.model = config.model || 'gemini-1.5-flash';
+    this.model = config.model || 'gemini-3.6-flash';
     this.timeout = config.timeout || 30000;
   }
 

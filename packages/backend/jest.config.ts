@@ -1,27 +1,31 @@
 import type { Config } from 'jest';
-import { pathsToModuleNameMapper } from 'ts-jest';
-import ts from 'typescript';
-
-// Path aliases (e.g. the ones added by `nest g library`) live in tsconfig.json,
-// so they are read from there instead of being duplicated here.
-const { config: tsconfig } = ts.readConfigFile(
-  './tsconfig.json',
-  ts.sys.readFile,
-);
-const paths = tsconfig?.compilerOptions?.paths ?? {};
 
 const config: Config = {
   moduleFileExtensions: ['js', 'json', 'ts'],
   rootDir: '.',
   testRegex: '.*\\.spec\\.ts$',
   transform: {
-    '^.+\\.(t|j)s$': 'ts-jest',
+    '^.+\\.(t|j)s$': [
+      '@swc/jest',
+      {
+        jsc: {
+          parser: {
+            syntax: 'typescript',
+            decorators: true,
+          },
+          transform: {
+            decoratorMetadata: true,
+          },
+        },
+      },
+    ],
   },
-  moduleNameMapper: pathsToModuleNameMapper(paths, { prefix: '<rootDir>/' }),
+  // Transform all node_modules (required for ESM packages like NestJS 12)
+  transformIgnorePatterns: [],
   collectCoverageFrom: [
     'src/**/*.(t|j)s',
-    'libs/**/*.(t|j)s',
-    'apps/**/*.(t|j)s',
+    '!src/**/*.spec.ts',
+    '!src/**/*.integration.spec.ts',
   ],
   coverageDirectory: './coverage',
   testEnvironment: 'node',
